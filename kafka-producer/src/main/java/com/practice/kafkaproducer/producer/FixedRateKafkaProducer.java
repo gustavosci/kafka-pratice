@@ -6,14 +6,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HelloKafkaProducer {
+public class FixedRateKafkaProducer {
 
-    private static final String TOPIC_NAME = "t_hello";
+    private static final String TOPIC_NAME = "t_fixedrate";
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendHello(final String message){
-        kafkaTemplate.send(TOPIC_NAME, message);
+    private int i = 0;
+
+    @Scheduled(fixedRate = 1000)
+    public void sendMessage(){
+        i++;
+        System.out.println("var i is " + i);
+        kafkaTemplate.send(TOPIC_NAME, "Fixed rate: " + i);
     }
 }
