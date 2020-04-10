@@ -1,5 +1,6 @@
 package com.practice.kafkaproducer;
 
+import com.practice.kafkaproducer.producer.HandleExceptionKafkaProducer;
 import com.practice.kafkaproducer.producer.MultiPartitionsKafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +15,9 @@ public class KafkaProducerApplication implements CommandLineRunner {
 	@Autowired
 	private MultiPartitionsKafkaProducer multiPartitionsKafkaProducer;
 
+	@Autowired
+	private HandleExceptionKafkaProducer handleExceptionKafkaProducer;
+
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaProducerApplication.class, args);
 	}
@@ -24,6 +28,10 @@ public class KafkaProducerApplication implements CommandLineRunner {
 			var key = "key-" + (i % 4);
 			var value = "data " + i + " with key " + key;
 			multiPartitionsKafkaProducer.sendMessage(key, value);
+		}
+
+		for (int i = 0; i < 1000; i++){
+			handleExceptionKafkaProducer.sendMessage(i);
 		}
 	}
 }
