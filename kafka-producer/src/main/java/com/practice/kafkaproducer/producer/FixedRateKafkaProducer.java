@@ -15,7 +15,7 @@ public class FixedRateKafkaProducer {
 
     private int i = 0;
 
-    @Scheduled(fixedRate = 1000)
+    //@Scheduled(fixedRate = 1000)
     public void sendMessage(){
         i++;
         System.out.println("var i is " + i);

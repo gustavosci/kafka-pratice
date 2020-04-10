@@ -8,7 +8,7 @@ public class FixedRateKafkaConsumer {
 
     private static final String TOPIC_NAME = "t_fixedrate";
 
-    @KafkaListener(topics = TOPIC_NAME)
+    @KafkaListener(topics = TOPIC_NAME, groupId = "specific_group_fixed_rate")
     public void consume(final String message){
         System.out.println("Message from producer: " + message);
     }
